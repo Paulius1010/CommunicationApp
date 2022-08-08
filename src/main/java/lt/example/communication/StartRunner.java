@@ -25,7 +25,7 @@ public class StartRunner implements ApplicationRunner {
     private PasswordEncoder encoder;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         Role userRole = new Role(ERole.ROLE_USER);
         Role adminRole = new Role(ERole.ROLE_ADMIN);
         this.roleRepository.save(userRole);

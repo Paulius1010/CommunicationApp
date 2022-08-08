@@ -1,6 +1,6 @@
 package lt.example.communication.security.jwt;
 
-import lt.example.communication.services.UserDetailsServiceImpl;
+import lt.example.communication.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

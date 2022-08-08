@@ -1,7 +1,8 @@
-package lt.example.communication.services;
+package lt.example.communication.security.services;
 
 import lt.example.communication.security.jwt.AuthEntryPointJwt;
 import lt.example.communication.security.jwt.AuthTokenFilter;
+import lt.example.communication.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

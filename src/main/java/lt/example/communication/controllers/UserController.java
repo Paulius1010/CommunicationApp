@@ -4,7 +4,7 @@ import lt.example.communication.models.ERole;
 import lt.example.communication.models.Role;
 import lt.example.communication.models.User;
 import lt.example.communication.payloads.requests.SignupRequest;
-import lt.example.communication.payloads.responses.MessageResponse;
+import lt.example.communication.payloads.responses.AuthMessageResponse;
 import lt.example.communication.repositories.RoleRepository;
 import lt.example.communication.repositories.UserRepository;
 import lt.example.communication.services.UserService;
@@ -82,7 +82,7 @@ public class UserController {
 
         user.setRoles(roles);
         userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("User updated successfully!"));
+        return ResponseEntity.ok(new AuthMessageResponse("User updated successfully!"));
     }
 
     @GetMapping("/all")

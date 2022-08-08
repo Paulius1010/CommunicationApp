@@ -2,6 +2,7 @@ package lt.example.communication.models;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -32,7 +33,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<Message> orders;
+    private List<Message> messages;
 
     public User() {
 
@@ -84,11 +85,11 @@ public class User {
         this.id = id;
     }
 
-    public Set<Message> getOrders() {
-        return orders;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setOrders(Set<Message> orders) {
-        this.orders = orders;
+    public void setOrders(List<Message> messages) {
+        this.messages = messages;
     }
 }

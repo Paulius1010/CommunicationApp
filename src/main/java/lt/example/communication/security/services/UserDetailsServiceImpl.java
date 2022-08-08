@@ -1,4 +1,4 @@
-package lt.example.communication.services;
+package lt.example.communication.security.services;
 
 import lt.example.communication.models.User;
 import lt.example.communication.repositories.UserRepository;

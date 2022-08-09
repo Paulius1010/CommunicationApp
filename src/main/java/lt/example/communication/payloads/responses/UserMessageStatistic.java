@@ -46,4 +46,28 @@ public class UserMessageStatistic {
     public void setLastMessageText(String lastMessageText) {
         this.lastMessageText = lastMessageText;
     }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public Integer getMessagesAmount() {
+        return messagesAmount;
+    }
+
+    public LocalDateTime getFirstMessageTime() {
+        return firstMessageTime;
+    }
+
+    public LocalDateTime getLastMessageTime() {
+        return lastMessageTime;
+    }
+
+    public Integer getAverageMessageLength() {
+        return averageMessageLength;
+    }
+
+    public String getLastMessageText() {
+        return lastMessageText;
+    }
 }

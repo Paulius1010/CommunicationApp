@@ -10,6 +10,11 @@ public class MessageRequest {
     @NotBlank
     private String text;
 
+    public MessageRequest(String recipientEmail, String text) {
+        this.recipientEmail = recipientEmail;
+        this.text = text;
+    }
+
     public String getRecipientEmail() {
         return recipientEmail;
     }

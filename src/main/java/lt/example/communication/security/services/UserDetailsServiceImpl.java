@@ -2,7 +2,6 @@ package lt.example.communication.security.services;
 
 import lt.example.communication.models.User;
 import lt.example.communication.repositories.UserRepository;
-import lt.example.communication.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

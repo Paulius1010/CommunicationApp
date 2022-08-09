@@ -8,8 +8,6 @@ import lt.example.communication.payloads.responses.UserMessageStatistic;
 import lt.example.communication.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,7 +26,7 @@ public class MessageService {
     }
 
     public List<Message> getAllUserMessages() {
-        String currentPrincipalEmail = getCurrentPrincipalEmail();
+        String currentPrincipalEmail = userService.getCurrentPrincipalEmail();
         User user = userService.getUserByEmail(currentPrincipalEmail).orElse(null);
         if(user != null){
             return messageRepository.findByUser(user);
@@ -61,7 +59,7 @@ public class MessageService {
     }
 
     public ResponseEntity<?> saveNewMessage(MessageRequest messageRequest) {
-        String currentPrincipalEmail = getCurrentPrincipalEmail();
+        String currentPrincipalEmail = userService.getCurrentPrincipalEmail();
         User recipient = userService.getUserByEmail(messageRequest.getRecipientEmail()).orElse(null);
         User sender = userService.getUserByEmail(currentPrincipalEmail).orElse(null);
         if(sender != null && recipient != null){
@@ -73,10 +71,5 @@ public class MessageService {
                     .badRequest()
                     .body(new MessageResponse("Error: message not sent! Email address is not valid."));
         }
-    }
-
-    private String getCurrentPrincipalEmail() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
     }
 }

@@ -8,6 +8,7 @@ import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.repositories.RoleRepository;
 import lt.example.communication.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -87,5 +88,10 @@ public class UserService {
                         || user.getName().contains(keyword)
                         || user.getSurname().contains(keyword))
                 .collect(Collectors.toSet());
+    }
+
+
+    public String getCurrentPrincipalEmail() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

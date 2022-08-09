@@ -42,7 +42,6 @@ public class User {
     private List<Message> messages;
 
     public User() {
-
     }
 
     public User(String username, String name, String surname, String email, String password) {
@@ -91,6 +90,10 @@ public class User {
 
     public List<Message> getMessages() {
         return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public String getName() {

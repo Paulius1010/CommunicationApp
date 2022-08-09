@@ -1,10 +1,10 @@
 package lt.example.communication.payloads.responses;
 
-public class AuthMessageResponse {
+public class MessageResponse {
 
     private String message;
 
-    public AuthMessageResponse(String message) {
+    public MessageResponse(String message) {
         this.message = message;
     }
 

@@ -6,7 +6,7 @@ import lt.example.communication.models.User;
 import lt.example.communication.payloads.requests.LoginRequest;
 import lt.example.communication.payloads.requests.SignupRequest;
 import lt.example.communication.payloads.responses.JwtResponse;
-import lt.example.communication.payloads.responses.AuthMessageResponse;
+import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.repositories.RoleRepository;
 import lt.example.communication.repositories.UserRepository;
 import lt.example.communication.security.jwt.JwtUtils;
@@ -66,10 +66,10 @@ public class AuthController {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new AuthMessageResponse("Error: Email is already in use!"));
+                    .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
+        User user = new User(signUpRequest.getUsername(), signUpRequest.getName(), signUpRequest.getSurname(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -95,7 +95,7 @@ public class AuthController {
 
         user.setRoles(roles);
         userRepository.save(user);
-        return ResponseEntity.ok(new AuthMessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
 }

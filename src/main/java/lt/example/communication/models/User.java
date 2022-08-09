@@ -21,6 +21,12 @@ public class User {
     private String username;
 
     @NotBlank
+    private String name;
+
+    @NotBlank
+    private String surname;
+
+    @NotBlank
     @Email
     private String email;
 
@@ -39,8 +45,10 @@ public class User {
 
     }
 
-    public User(@NotBlank String username, @NotBlank @Email String email, @NotBlank String password) {
+    public User(String username, String name, String surname, String email, String password) {
         this.username = username;
+        this.name = name;
+        this.surname = surname;
         this.email = email;
         this.password = password;
     }
@@ -81,15 +89,23 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<Message> getMessages() {
         return messages;
     }
 
-    public void setOrders(List<Message> messages) {
-        this.messages = messages;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

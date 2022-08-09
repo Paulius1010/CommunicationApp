@@ -2,15 +2,18 @@ package lt.example.communication.services;
 
 import lt.example.communication.models.Message;
 import lt.example.communication.models.User;
+import lt.example.communication.payloads.requests.MessageRequest;
+import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.payloads.responses.UserMessageStatistic;
 import lt.example.communication.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class MessageService {
@@ -44,17 +47,32 @@ public class MessageService {
             if (count != 0) {
                 Integer sum = messages.stream().map(message -> message.getText().length()).reduce(0, Integer::sum);
                 average = sum/count;
+                userMessageStatistics.add(new UserMessageStatistic(
+                        user.getEmail(),
+                        messages.size(),
+                        messages.get(0).getTime(),
+                        messages.get(messages.size()-1).getTime(),
+                        average,
+                        messages.get(messages.size()-1).getText()
+                ));
             }
-            userMessageStatistics.add(new UserMessageStatistic(
-                    user.getEmail(),
-                    messages.size(),
-                    messages.get(0).getTime(),
-                    messages.get(messages.size()).getTime(),
-                    average,
-                    messages.get(messages.size()).getText()
-            ));
         }
         return userMessageStatistics;
+    }
+
+    public ResponseEntity<?> saveNewMessage(MessageRequest messageRequest) {
+        String currentPrincipalEmail = getCurrentPrincipalEmail();
+        User recipient = userService.getUserByEmail(messageRequest.getRecipientEmail()).orElse(null);
+        User sender = userService.getUserByEmail(currentPrincipalEmail).orElse(null);
+        if(sender != null && recipient != null){
+            Message message = new Message(recipient, sender.getEmail(), messageRequest.getText(), LocalDateTime.now());
+            messageRepository.save(message);
+            return ResponseEntity.ok(new MessageResponse("Message sent successfully!"));
+        } else {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: message not sent! Email address is not valid."));
+        }
     }
 
     private String getCurrentPrincipalEmail() {

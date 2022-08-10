@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.example.communication.models.User;
 import lt.example.communication.payloads.requests.SignupRequest;
+import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class UserController {
     @ApiResponse(responseCode = "201",
             description = "New user successfully created in database")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> saveNewUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<MessageResponse> saveNewUser(@Valid @RequestBody SignupRequest signUpRequest) {
         return ResponseEntity.ok(this.userService.saveNewUser(signUpRequest));
     }
 

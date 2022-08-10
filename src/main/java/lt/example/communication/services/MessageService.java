@@ -58,7 +58,7 @@ public class MessageService {
         return userMessageStatistics;
     }
 
-    public ResponseEntity<?> saveNewMessage(MessageRequest messageRequest) {
+    public ResponseEntity<MessageResponse> saveNewMessage(MessageRequest messageRequest) {
         String currentPrincipalEmail = userService.getCurrentPrincipalEmail();
         User recipient = userService.getUserByEmail(messageRequest.getRecipientEmail()).orElse(null);
         User sender = userService.getUserByEmail(currentPrincipalEmail).orElse(null);

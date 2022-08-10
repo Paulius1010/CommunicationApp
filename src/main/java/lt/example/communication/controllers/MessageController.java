@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lt.example.communication.models.Message;
 import lt.example.communication.payloads.requests.MessageRequest;
+import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.payloads.responses.UserMessageStatistic;
 import lt.example.communication.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class MessageController {
     @Operation(summary = "save new user message sent to other user")
     @ApiResponse(responseCode = "201",
             description = "New message successfully saved in database")
-    public ResponseEntity<?> saveNewMessage(@RequestBody MessageRequest messageRequest) {
+    public ResponseEntity<MessageResponse> saveNewMessage(@RequestBody MessageRequest messageRequest) {
         return this.messageService.saveNewMessage(messageRequest);
     }
 

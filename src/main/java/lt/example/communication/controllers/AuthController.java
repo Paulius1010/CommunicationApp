@@ -1,5 +1,7 @@
 package lt.example.communication.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.example.communication.models.ERole;
 import lt.example.communication.models.Role;
 import lt.example.communication.models.User;
@@ -43,6 +45,9 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
+    @Operation(summary = "sign in user")
+    @ApiResponse(responseCode = "201",
+            description = "user is signed in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -61,6 +66,9 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
+    @Operation(summary = "sign up user")
+    @ApiResponse(responseCode = "201",
+            description = "user is signed up")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {

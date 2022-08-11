@@ -9,6 +9,7 @@ import lt.example.communication.payloads.requests.SignupRequest;
 import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class UserController {
             description = "user object",
             content = @Content(schema = @Schema(implementation = Optional.class)))
     public ResponseEntity<Optional<User>> getUserByEmail(@PathVariable String email) {
-        return ResponseEntity.ok().body(userService.getUserByEmail(email));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByEmail(email));
     }
 
     @DeleteMapping("/{id}")
@@ -52,7 +53,7 @@ public class UserController {
             description = "New user successfully created in database")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<MessageResponse> saveNewUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        return ResponseEntity.ok(this.userService.saveNewUser(signUpRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.saveNewUser(signUpRequest));
     }
 
     @GetMapping("/all")
@@ -62,7 +63,7 @@ public class UserController {
 
     @GetMapping("/search/{keyword}")
     public ResponseEntity<Set<User>> getUsersByKeyword(@PathVariable String keyword) {
-        return ResponseEntity.ok().body(this.userService.getUsersByKeyword(keyword));
+        return ResponseEntity.status(HttpStatus.OK).body(this.userService.getUsersByKeyword(keyword));
     }
 
 }

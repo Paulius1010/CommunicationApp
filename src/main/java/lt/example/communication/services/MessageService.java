@@ -7,6 +7,7 @@ import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.payloads.responses.UserMessageStatistic;
 import lt.example.communication.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +41,8 @@ public class MessageService {
         List<UserMessageStatistic> userMessageStatistics = new ArrayList<>();
         for (User user : users) {
             List<Message> messages = user.getMessages();
-            Integer count = messages.size();
-            Integer average = 0;
+            int count = messages.size();
+            int average = 0;
             if (count != 0) {
                 Integer sum = messages.stream().map(message -> message.getText().length()).reduce(0, Integer::sum);
                 average = sum/count;
@@ -65,10 +66,10 @@ public class MessageService {
         if(sender != null && recipient != null){
             Message message = new Message(recipient, sender.getEmail(), messageRequest.getText(), LocalDateTime.now());
             messageRepository.save(message);
-            return ResponseEntity.ok(new MessageResponse("Message sent successfully!"));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Message sent successfully!"));
         } else {
             return ResponseEntity
-                    .badRequest()
+                    .status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse("Error: message not sent! Email address is not valid."));
         }
     }

@@ -11,6 +11,7 @@ import lt.example.communication.payloads.responses.MessageResponse;
 import lt.example.communication.payloads.responses.UserMessageStatistic;
 import lt.example.communication.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class MessageController {
             description = "Statistics by users",
             content = @Content(schema = @Schema(implementation = List.class)))
     public ResponseEntity<List<UserMessageStatistic>> getStatistics() {
-        return ResponseEntity.ok().body(this.messageService.getStatistics());
+        return ResponseEntity.status(HttpStatus.OK).body(this.messageService.getStatistics());
     }
 
     @GetMapping
@@ -44,7 +45,7 @@ public class MessageController {
             description = "Messages of user",
             content = @Content(schema = @Schema(implementation = List.class)))
     public ResponseEntity<List<Message>> fetchAllUserMessages() {
-        return ResponseEntity.ok().body(this.messageService.getAllUserMessages());
+        return ResponseEntity.status(HttpStatus.OK).body(this.messageService.getAllUserMessages());
     }
 
     @PostMapping

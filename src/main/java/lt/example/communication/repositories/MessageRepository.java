@@ -12,5 +12,4 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findByUser(User user);
 
-
 }

@@ -11,7 +11,8 @@ public class UserMessageStatistic {
     private Integer averageMessageLength;
     private String lastMessageText;
 
-    public UserMessageStatistic(String userEmail, Integer messagesAmount, LocalDateTime firstMessageTime, LocalDateTime lastMessageTime, Integer averageMessageLength, String lastMessageText) {
+    public UserMessageStatistic(String userEmail, Integer messagesAmount, LocalDateTime firstMessageTime,
+                                LocalDateTime lastMessageTime, Integer averageMessageLength, String lastMessageText) {
         this.userEmail = userEmail;
         this.messagesAmount = messagesAmount;
         this.firstMessageTime = firstMessageTime;

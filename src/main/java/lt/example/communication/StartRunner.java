@@ -33,14 +33,14 @@ public class StartRunner implements ApplicationRunner {
         this.roleRepository.save(userRole);
         this.roleRepository.save(adminRole);
 
-        User user = new User("paulius", "Paulius", "Vitkūnas", "paulius@mail.com",
+        User user = new User("paulius", "Paulius", "Vi", "paulius@mail.com",
                 this.encoder.encode("paulius"));
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(userRole);
         user.setRoles(userRoles);
         this.userRepository.save(user);
 
-        User admin = new User("adminas", "Paulius", "Vitkūnas", "adminas@mail.com",
+        User admin = new User("adminas", "Paulius", "Vi", "adminas@mail.com",
                 encoder.encode("adminas"));
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
